@@ -8,6 +8,7 @@ JSON = ".json"
 DIFF = "diff"
 DIST = "dist"
 
+OFFSET = 1
 file = "111"
 
 f = open(f"{DIFF}/{file}{PATCH}", "r", encoding="utf-8")
@@ -47,7 +48,7 @@ for i, pair in enumerate(pairs):
 
     list2 = list(s2)
     ptr = 0
-    offset = 2
+    offset = OFFSET
 
     for i, word in enumerate(l1):
         length = len(word)
@@ -76,6 +77,6 @@ for i, pair in enumerate(pairs):
 fmt = json.dumps(obj, ensure_ascii=False, indent=2)
 # print(fmt)
 
-j = open(f"{DIST}/{file}-a{JSON}", "w")
+j = open(f"{DIST}/{file}-{OFFSET}{JSON}", "w")
 j.write(fmt)
 j.close()

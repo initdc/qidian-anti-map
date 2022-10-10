@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         qidian anti map
 // @namespace    https://greasyfork.org/zh-CN/scripts/452806-qidian-anti-map
-// @version      0.1
+// @version      0.0.3
 // @description  anti map used for qidian
 // @author       initdc
 // @license      MPL-2.0
@@ -23,6 +23,9 @@
         if (pair[0].length > 1) {
           console.log(pair[0], "->", pair[1]);
           content = inner.replace(pair[0], pair[1]);
+          if (inner === content) {
+            console.error(pair[0], " not found")
+          }
           inner = content;
         }
       });
@@ -31,7 +34,7 @@
   }
 
   const map_url =
-    "https://raw.githubusercontent.com/initdc/qidian-anti-map/master/dist/111-a.json";
+    "https://raw.githubusercontent.com/initdc/qidian-anti-map/master/dist/111-1.json";
   let fetchRes = await fetch(map_url);
   let resp = await fetchRes.json();
   //console.log(resp);
