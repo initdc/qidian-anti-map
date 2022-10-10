@@ -47,22 +47,35 @@ for i, pair in enumerate(pairs):
 
     list2 = list(s2)
     ptr = 0
+    offset = 2
 
     for i, word in enumerate(l1):
         length = len(word)
-        
-        copyWord = "".join(list2[ptr:ptr + length])
+        newPtr = ptr + length
+        copyWord = "".join(list2[ptr:newPtr])
         # print(copyWord)
         if word != copyWord:
             if word != "\n" and word != "\u2019":
-                print(word, "->", copyWord)
-                obj.append([copyWord ,word])
+                leftOfWord = ""
+                rightOfWord = ""
 
-        ptr += length
+                if ptr - offset >= 0:
+                    leftOfWord = "".join(list2[ptr - offset:ptr])
+
+                if newPtr + offset < len(list2):   
+                    rightOfWord = "".join(list2[newPtr:newPtr + offset])
+                
+                w1 = f"{leftOfWord}{copyWord}{rightOfWord}"
+                w2 = f"{leftOfWord}{word}{rightOfWord}"
+
+                print(w2, "->", w1)
+                obj.append([w1 ,w2])
+
+        ptr = newPtr
 
 fmt = json.dumps(obj, ensure_ascii=False, indent=2)
 # print(fmt)
 
-j = open(f"{DIST}/{file}{JSON}", "w")
+j = open(f"{DIST}/{file}-a{JSON}", "w")
 j.write(fmt)
 j.close()

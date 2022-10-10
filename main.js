@@ -31,14 +31,14 @@
   }
 
   const map_url =
-    "https://raw.githubusercontent.com/initdc/qidian-anti-map/master/dist/111.json";
+    "https://raw.githubusercontent.com/initdc/qidian-anti-map/master/dist/111-a.json";
   let fetchRes = await fetch(map_url);
   let resp = await fetchRes.json();
   //console.log(resp);
 
   const ID_Map = ["txt"];
   const classMap = [];
-  
+
   ID_Map.forEach((id) => {
     const d = document.getElementById(id);
     replaceDOM(d, resp);
