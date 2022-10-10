@@ -1,7 +1,7 @@
-SRC = "source"
-DEST = "dest"
+require "./comm"
 
-`mkdir -p #{DEST}`
+FILTER = ["\n", "        \n"]
+DELETE = "　　"
 
 def perline src, *opt
     dest = opt[0]
@@ -10,11 +10,11 @@ def perline src, *opt
     buffer = ""
     File.foreach(src) {|line|
         last = line
-        if line != "\n"
+        # p line
+        if !(FILTER.include? line)
+            line = line.delete(DELETE)
             buffer += line + add
-        else
-            buffer += line
-        end
+        end 
     }
 
     if dest.empty?
@@ -24,8 +24,10 @@ def perline src, *opt
     end
 end
 
-orig = "qidian.txt"
-copy = "copy.txt"
+`mkdir -p #{DEST}`
 
-# perline "#{SRC}/#{orig}", "#{DEST}/#{orig}"
-# perline "#{SRC}/#{copy}", "#{DEST}/#{copy}"
+
+file = "111"
+
+perline "#{SRC}/#{file}#{TXT}", "#{DEST}/#{file}-src#{TXT}"
+perline "#{COPY}/#{file}#{TXT}", "#{DEST}/#{file}-copy#{TXT}"

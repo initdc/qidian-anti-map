@@ -1,4 +1,5 @@
 dest/
+diff/
 *.patch
 
 __pycache__

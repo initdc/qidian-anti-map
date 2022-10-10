@@ -2,7 +2,15 @@
 import json
 import jieba
 
-f = open("orig-copy.patch", "r", encoding="utf-8")
+PATCH = ".patch"
+JSON = ".json"
+
+DIFF = "diff"
+DIST = "dist"
+
+file = "111"
+
+f = open(f"{DIFF}/{file}{PATCH}", "r", encoding="utf-8")
 
 lastI = 0
 last = ""
@@ -54,6 +62,6 @@ for i, pair in enumerate(pairs):
 fmt = json.dumps(obj, ensure_ascii=False, indent=2)
 # print(fmt)
 
-j = open("map.json", "w")
+j = open(f"{DIST}/{file}{JSON}", "w")
 j.write(fmt)
 j.close()

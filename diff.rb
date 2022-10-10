@@ -1,6 +1,8 @@
-require "./perline"
+require "./comm"
 
-orig = "qidian.txt"
-copy = "copy.txt"
+`mkdir -p #{DIFF}`
 
-`git diff --ignore-all-space --diff-algorithm=myers --no-index #{DEST}/#{orig} #{DEST}/#{copy} > orig-copy.patch`
+
+file = "111"
+
+`git diff --ignore-all-space --diff-algorithm=myers --no-index #{DEST}/#{file}-src.txt #{DEST}/#{file}-copy.txt > #{DIFF}/#{file}.patch`
