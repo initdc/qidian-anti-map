@@ -46,18 +46,19 @@ for i, pair in enumerate(pairs):
     # print("|".join(l2))
 
     list2 = list(s2)
+    ptr = 0
 
     for i, word in enumerate(l1):
         length = len(word)
         
-        copyWord = "".join(list2[:length])
+        copyWord = "".join(list2[ptr:ptr + length])
         # print(copyWord)
         if word != copyWord:
             if word != "\n" and word != "\u2019":
                 print(word, "->", copyWord)
                 obj.append([copyWord ,word])
 
-        del list2[:length]
+        ptr += length
 
 fmt = json.dumps(obj, ensure_ascii=False, indent=2)
 # print(fmt)
