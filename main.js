@@ -17,28 +17,52 @@
 
   function replaceDOM(d, pairs) {
     if (d) {
+      const origin = d.innerHTML;
+      const len = origin.length;
+      const pLen = pairs.length;
+
+      let ptr = 1;
+      let lastPtr = 0;
+      let index = 0;
+      let wrapper = "";
       let content = "";
-      let inner = d.innerHTML;
-      pairs.forEach((pair) => {
-        if (pair[0].length > 1) {
-          console.log(pair[0], "->", pair[1]);
-          content = inner.replace(pair[0], pair[1]);
-          inner = content;
+
+      for (ptr; ptr < len; ptr++) {
+        if (index >= pLen) {
+          ptr = len;
+          continue;
         }
-      });
+        wrapper = origin.slice(lastPtr, ptr);
+        const pair = pairs[index];
+        const copyWord = pair[0];
+        if (wrapper.includes(copyWord)) {
+          const word = pair[1];
+          console.log(copyWord, "->", word);
+          const newWrapper = wrapper.replace(copyWord, word);
+          // if (newWrapper === wrapper) {
+          //   console.error(copyWord, "->", word, "replace fault");
+          // }
+          content += newWrapper;
+          lastPtr = ptr;
+          index += 1;
+        }
+        wrapper = "";
+      }
+      wrapper = origin.slice(lastPtr);
+      content += wrapper;
       d.innerHTML = content;
     }
   }
 
   const map_url =
-    "https://raw.githubusercontent.com/initdc/qidian-anti-map/master/dist/111.json";
+    "https://raw.githubusercontent.com/initdc/qidian-anti-map/feat/last/dist/111.json";
   let fetchRes = await fetch(map_url);
   let resp = await fetchRes.json();
   //console.log(resp);
 
   const ID_Map = ["txt"];
   const classMap = [];
-  
+
   ID_Map.forEach((id) => {
     const d = document.getElementById(id);
     replaceDOM(d, resp);
