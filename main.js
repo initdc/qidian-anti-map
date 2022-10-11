@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         qidian anti map
 // @namespace    https://greasyfork.org/zh-CN/scripts/452806-qidian-anti-map
-// @version      0.1
+// @version      0.0.4
 // @description  anti map used for qidian
 // @author       initdc
 // @license      MPL-2.0

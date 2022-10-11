@@ -47,22 +47,49 @@ for i, pair in enumerate(pairs):
 
     list2 = list(s2)
     ptr = 0
+    lastPtr = 0
+    lastWord = ""
+    lastCopyWord = ""
 
-    for i, word in enumerate(l1):
+    for j, word in enumerate(l1):
         length = len(word)
-        
-        copyWord = "".join(list2[ptr:ptr + length])
-        # print(copyWord)
-        if word != copyWord:
-            if word != "\n" and word != "\u2019":
-                print(word, "->", copyWord)
-                obj.append([copyWord ,word])
+        newPtr = ptr + length
 
-        ptr += length
+        FILTER = ["\n", "\u2019"]
+        inf = True if word in FILTER else False
+        if inf == False:
+            copyWord = "".join(list2[ptr:newPtr])
+            # print(copyWord)
+
+            if lastWord == lastCopyWord:
+                if word == copyWord:
+                    lastPtr = newPtr
+                    lastWord = ""
+                    lastCopyWord = ""
+                else:
+                    lastPtr = ptr
+                    lastWord = word
+                    lastCopyWord = copyWord
+            else:
+                if word == copyWord:
+                    w1 = lastWord
+                    w2 = "".join(list2[lastPtr:ptr])
+
+                    print(w1, "->", w2)
+                    obj.append([w2 ,w1])
+                    lastPtr = newPtr
+                    lastWord = ""
+                    lastCopyWord = ""
+                else:
+                    lastWord += word
+                    lastCopyWord += copyWord
+
+        ptr = newPtr
+           
 
 fmt = json.dumps(obj, ensure_ascii=False, indent=2)
 # print(fmt)
 
-j = open(f"{DIST}/{file}{JSON}", "w")
-j.write(fmt)
-j.close()
+jn = open(f"{DIST}/{file}{JSON}", "w")
+jn.write(fmt)
+jn.close()
